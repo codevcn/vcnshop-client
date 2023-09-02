@@ -1,0 +1,22 @@
+.Toastify {
+
+    & .Toastify__toast-container {
+
+        .Toastify__toast {
+            z-index: 99;
+
+            & .Toastify__toast-body {
+
+                & div {
+                    color: white;
+                }
+            }
+
+            background-color: #1e1e1e;
+
+            & .Toastify__close-button>svg {
+                fill: white;
+            }
+        }
+    }
+}

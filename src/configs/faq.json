@@ -1,0 +1,31 @@
+{
+    "Tax ?": [
+        "Currently there's no detail about tax.",
+        "We will charge you 8% of total price of items in every order you purchasing."
+    ],
+    "Usable payment method ?": [
+        "Currently we're using only Stripe for the payment"
+    ],
+    "Contact to admin ?": [
+        "Via email: codevoicainay@gmail.com"
+    ],
+    "Where can I get a promo code or coupon ?": [
+        "Currently, we don't have any event regarding to promotion"
+    ],
+    "How do I become a seller on this site ?": [
+        "Yes, go to <b>Account > My Store > Products > New Product</b>",
+        "But you need a shop account first, let's create one at \"My Store\" step"
+    ],
+    "Where can I track my orders ?": [
+        "You can track your orders at <b>Account > My Orders</b>"
+    ],
+    "How do I change my account avatar or shop avatar ?": [
+        "You can change the avatar by click into avatar section"
+    ],
+    "Is there anything like wishlist ?": [
+        "Currently, we don't have any features about wishlist"
+    ],
+    "What kind of email can I use to get OTP code ?": [
+        "Currently, we support Gmail only"
+    ]
+}
