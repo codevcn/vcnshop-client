@@ -192,7 +192,7 @@ const ProductCards = ({ cartItems }) => {
                         <EmptyCartText className="desc">
                             Let's shop now and make up your cart!!
                         </EmptyCartText>
-                        <EmptyCartBtn href="/">
+                        <EmptyCartBtn to="/">
                             Shopping Now
                         </EmptyCartBtn>
                     </Stack>
@@ -348,10 +348,10 @@ const EmptyCartText = styled('p')(({ theme }) => ({
     }
 }))
 
-const EmptyCartBtn = styled('a')({
+const EmptyCartBtn = styled(NavLink)(({ theme }) => ({
     padding: '10px 20px',
     borderRadius: '10px',
-    fontFamily: 'nunito',
+    fontFamily: theme.fontFamily.nunito,
     fontWeight: 'bold',
     fontSize: '1em',
     color: 'white',
@@ -363,7 +363,7 @@ const EmptyCartBtn = styled('a')({
     '&:hover': {
         transform: 'scale(1.05)',
     },
-})
+}))
 
 const RemoveProduct = styled('div')(({ theme }) => ({
     display: 'flex',
