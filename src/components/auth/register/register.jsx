@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sendRegisterOTP } from "../../../store/actions/user_actions"
 import CompleteRegister from "./complete_register"
 import validator from 'validator'
+import { Typography } from "@mui/material"
 
 const Register = () => {
     const { auth: { registerStep }, loading } = useSelector(({ user }) => user)
@@ -43,7 +44,8 @@ const Register = () => {
             <RegisterSection id="RegisterSection">
 
                 <div>
-                    <FormTitle>Register</FormTitle>
+                    <Title>Register</Title>
+
                     {
                         registerStep === 1 &&
                         <>
@@ -73,14 +75,20 @@ const Register = () => {
                             </HelperText>
                         </>
                     }
+
                     {
                         registerStep === 2 &&
                         <VerifyOTP emailWasTyped={email_was_typed_ref.current} />
                     }
+                    
                     <SendOTPContainer>
-                        <Problems>
+                        <Typography
+                            color='red'
+                            fontSize='0.9em'
+                            sx={{ cursor: 'pointer' }}
+                        >
                             Have problem ?
-                        </Problems>
+                        </Typography>
                         {
                             loading &&
                             <SendOTPBtn>
@@ -131,7 +139,7 @@ const RegisterSection = styled('div')(({ theme }) => ({
     }
 }))
 
-const FormTitle = styled('h2')({
+const Title = styled('h2')({
     fontWeight: 'bold',
     fontSize: '2em',
     color: 'white',
@@ -183,21 +191,12 @@ const SendOTPContainer = styled('div')(({ theme }) => ({
     display: 'flex',
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: "10px",
+    marginTop: "20px",
     [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         rowGap: '10px',
     }
 }))
-
-const Problems = styled('div')({
-    color: 'red',
-    fontSize: '0.9em',
-    cursor: 'pointer',
-    '&:hover': {
-        textDecoration: 'underline',
-    }
-})
 
 const SendOTPBtn = styled('button')({
     display: 'flex',
@@ -217,7 +216,7 @@ const SendOTPBtn = styled('button')({
 
 const SignIn = styled('div')(({ theme }) => ({
     color: 'white',
-    marginTop: '10px',
+    marginTop: '30px',
     '& .NavLink': {
         color: 'yellow',
         fontWeight: 'bold',

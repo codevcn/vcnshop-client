@@ -16,18 +16,12 @@ import UndoIcon from '@mui/icons-material/Undo'
 import { Tooltip, Typography, IconButton, Stack, Box } from '@mui/material'
 import { useGetQueryValue } from "../../hooks/custom_hooks"
 
+// for testing
+import testing from '../../test/auth.json'
+
 const form_group_icon_style = { color: 'white', marginLeft: '10px' }
 
-const auto_account = {
-    user: {
-        email: 'luongthanhloi000@gmail.com',
-        password: 'asd123C',
-    },
-    admin: {
-        email: 'codevoicainay@gmail.com',
-        password: 'Adminvcnshop095',
-    }
-}
+const auto_account = testing.Account
 
 const AutoAccountButton = ({ handleSetAutoAccount }) => {
     const [getAccountBtn, setGetAccountBtn] = useState(false)
@@ -45,13 +39,20 @@ const AutoAccountButton = ({ handleSetAutoAccount }) => {
     }
 
     return (
-        <Stack columnGap="10px" flexDirection="row" marginTop="20px" alignItems="center">
+        <Stack
+            columnGap="10px"
+            rowGap="5px"
+            flexDirection="row"
+            marginTop="20px"
+            alignItems="center"
+            flexWrap="wrap"
+        >
             {
                 getAccountBtn ?
                     <>
                         <button
                             style={style_for_btn}
-                            onClick={() => handleSetAutoAccount('user')}
+                            onClick={() => handleSetAutoAccount('user_1')}
                             type="button"
                         >
                             For User
@@ -118,12 +119,12 @@ const Login = () => {
     }
 
     const handleSetAutoAccount = useCallback((role) => {
-        if (role === 'user') {
-            setValue('Email', auto_account.user.email)
-            setValue('Password', auto_account.user.password)
+        if (role === 'user_1') {
+            setValue('Email', auto_account[1].email)
+            setValue('Password', auto_account[1].password)
         } else if (role === 'admin') {
-            setValue('Email', auto_account.admin.email)
-            setValue('Password', auto_account.admin.password)
+            setValue('Email', auto_account[0].email)
+            setValue('Password', auto_account[0].password)
         } else {
             setValue('Email', '')
             setValue('Password', '')
@@ -304,7 +305,7 @@ const LoginBtn = styled('button')({
 
 const SignUp = styled('div')(({ theme }) => ({
     color: 'white',
-    marginTop: '10px',
+    marginTop: '30px',
     '& .NavLink': {
         color: 'yellow',
         fontWeight: 'bold',

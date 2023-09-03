@@ -19,6 +19,9 @@ import MyStore from './pages/my_store'
 import TermsOfUse from './pages/terms_of_use'
 import webfont from 'webfontloader'
 import FAQ from './pages/faq'
+import "react-toastify/dist/ReactToastify.css"
+import './styles/body.scss'
+import './styles/toastify.scss'
 
 function App() {
   const dispatch = useDispatch()

@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles'
 import OAuth from "./OAuth"
 import Divider from '@mui/material/Divider'
 import ClearIcon from '@mui/icons-material/Clear'
-import "react-toastify/dist/ReactToastify.css"
 import CircularProgress from '@mui/material/CircularProgress'
 import { NavLink } from "react-router-dom"
 import { toast } from 'react-toastify'
@@ -98,8 +97,14 @@ const ForgotPasswordSection = () => {
                     }
                     {
                         forgotPasswordStep === 1 &&
-                        <SubmitBtnContainer>
+                        <Box
+                            display='flex'
+                            justifyContent='space-between'
+                            alignItems='center'
+                            marginTop='20px'
+                        >
                             <span></span>
+
                             <SendRecoverCodeBtn onClick={forgotPasswordSubmit}>
                                 {
                                     loading ?
@@ -111,7 +116,7 @@ const ForgotPasswordSection = () => {
                                         : <span>Send recover code</span>
                                 }
                             </SendRecoverCodeBtn>
-                        </SubmitBtnContainer>
+                        </Box>
                     }
                     {
                         forgotPasswordStep === 2 &&
@@ -122,12 +127,12 @@ const ForgotPasswordSection = () => {
                     }
                 </div>
 
-                <SignInContainer>
+                <SignIn>
                     <span>Already have an account ? </span>
                     <NavLink to="/auth/login" className="NavLink">
                         Sign In.
                     </NavLink>
-                </SignInContainer>
+                </SignIn>
 
                 <OAuth />
 
@@ -215,13 +220,6 @@ const HelperText = styled('div')({
     paddingLeft: '5px',
 })
 
-const SubmitBtnContainer = styled('div')({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '20px',
-})
-
 const SendRecoverCodeBtn = styled('button')({
     display: 'flex',
     alignItems: 'center',
@@ -239,8 +237,8 @@ const SendRecoverCodeBtn = styled('button')({
     }
 })
 
-const SignInContainer = styled('div')(({ theme }) => ({
-    marginTop: '15px',
+const SignIn = styled('div')(({ theme }) => ({
+    marginTop: '30px',
     color: 'white',
     fontFamily: 'nunito',
     '& .NavLink': {

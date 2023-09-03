@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import ClearIcon from '@mui/icons-material/Clear'
 import { useDispatch } from "react-redux"
 import { verifyRegisterOTP } from "../../../store/actions/user_actions"
-import { IconButton, Tooltip, Typography } from "@mui/material"
+import { Box, IconButton, Tooltip, Typography } from "@mui/material"
 
 const input_value_validator = /^\d+$/
 
@@ -78,14 +78,20 @@ const VerifyOTP = ({ emailWasTyped }) => {
     }
 
     return (
-        <VerifyOTPFormGroup id="VerifyOTPFormGroup">
+        <Box
+            marginTop='20px'
+            id="VerifyOTPFormGroup"
+        >
+
             <Title>Enter the OTP code here...</Title>
 
-            <OTPInputContainer ref={OTPInputContainerRef}>
+            <OTPInputs
+                ref={OTPInputContainerRef}
+            >
 
                 {
                     input_values.map((items, index) => (
-                        <OTPInputs
+                        <OTPInput
                             key={index}
                             type="text"
                             inputMode="numeric"
@@ -112,21 +118,24 @@ const VerifyOTP = ({ emailWasTyped }) => {
                     </IconButton>
 
                 </ClearInputsBtn>
-            </OTPInputContainer>
 
-            <Announce>
+            </OTPInputs>
+
+            <Typography
+                margin='0'
+                marginTop='5px'
+                fontStyle='italic'
+                color='white'
+                fontSize='0.8em'
+            >
                 A four-digit OTP code was sent to your email.
                 Please check the email and enter or paste the code to above.
-            </Announce>
-        </VerifyOTPFormGroup>
+            </Typography>
+        </Box>
     )
 }
 
 export default VerifyOTP
-
-const VerifyOTPFormGroup = styled('div')({
-    marginTop: '20px',
-})
 
 const Title = styled(Typography)({
     display: 'block',
@@ -137,9 +146,9 @@ const Title = styled(Typography)({
     borderRadius: '5px',
 })
 
-const OTPInputContainer = styled('div')({
+const OTPInputs = styled('div')(({ theme }) => ({
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px',
     margin: '0 auto',
@@ -147,9 +156,12 @@ const OTPInputContainer = styled('div')({
     width: '60%',
     position: 'relative',
     borderBottom: '1.5px #33b8b6 solid',
-})
+    [theme.breakpoints.down('sm')]: {
+        width: '70%',
+    }
+}))
 
-const OTPInputs = styled('input')({
+const OTPInput = styled('input')({
     width: '42px',
     height: '42px',
     padding: '0 3px',
@@ -180,12 +192,4 @@ const ClearInputsBtn = styled('div')({
     position: 'absolute',
     left: "100%",
     top: "0",
-})
-
-const Announce = styled(Typography)({
-    margin: '0',
-    marginTop: '5px',
-    fontStyle: 'italic',
-    color: 'white',
-    fontSize: '0.8em',
 })

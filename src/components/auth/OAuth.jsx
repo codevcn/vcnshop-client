@@ -157,7 +157,7 @@ const OAuth = () => {
 export default OAuth
 
 const OAuthSection = styled('div')(({ theme }) => ({
-    marginTop: "15px",
+    marginTop: "30px",
     fontFamily: theme.fontFamily.nunito,
     [theme.breakpoints.down('sm')]: {
         fontSize: '0.8em',

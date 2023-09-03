@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './app'
-import './styles/body.scss'
-import './styles/toastify.scss'
 import { Provider } from 'react-redux'
 import store from './store/store'
 import { ThemeProvider } from '@mui/material/styles'
