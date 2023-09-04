@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { createTheme, styled } from '@mui/material/styles'
 import Mascot from '../assets/images/VCNShop_Mascot.png'
 import { NavLink, useNavigate } from "react-router-dom"
@@ -18,17 +18,25 @@ const Auth = () => {
     const [authSetUp, setAuthSetUp] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const checkAuthFlag = useRef(1)
+
+    const handleCheckAuth = async () => {
+        if (checkAuthFlag.current !== 1) return
+
+        await dispatch(setUpAuth())
+
+        if (authStatus === AUTH_STATUS_AUTHENTICATED) {
+            navigate('/account')
+
+        } else if (authStatus === AUTH_STATUS_NOT_AUTHENTICATED) {
+            setAuthSetUp(true)
+
+            checkAuthFlag.current = 2
+        }
+    }
 
     useEffect(() => {
-        (async () => {
-            await dispatch(setUpAuth())
-
-            if (authStatus === AUTH_STATUS_AUTHENTICATED) {
-                navigate('/account')
-            } else if (authStatus === AUTH_STATUS_NOT_AUTHENTICATED) {
-                setAuthSetUp(true)
-            }
-        })()
+        handleCheckAuth()
     }, [authStatus])
 
     if (!authSetUp)

@@ -11,12 +11,12 @@ import { AUTH_STATUS_AUTHENTICATED, AUTH_STATUS_NOT_AUTHENTICATED } from '../con
 
 const ProtectedRoute = ({ children, isAdminRoute }) => {
     const [isVerified, setIsVerified] = useState(false)
-    const { auth: { authStatus }, user, error } = useSelector(({ user }) => user)
+    const { auth: { authStatus }, user } = useSelector(({ user }) => user)
     const navigate_to_login = useNavToRedirectLogin()
     const check_is_admin_role = useCheckIsAdminRole()
 
     const authHandler = () => {
-        if (authStatus === AUTH_STATUS_AUTHENTICATED) {
+        if (authStatus === AUTH_STATUS_AUTHENTICATED && user) {
             if (isAdminRoute && !check_is_admin_role(user.role)) {
                 toast.warning('You don\'t have permission to access this resource')
                 navigate_to_login()
@@ -31,7 +31,7 @@ const ProtectedRoute = ({ children, isAdminRoute }) => {
 
     useEffect(() => {
         authHandler()
-    }, [authStatus, user, error])
+    }, [authStatus, user])
 
     if (isVerified)
         return children

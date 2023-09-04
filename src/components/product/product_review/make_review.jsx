@@ -38,8 +38,8 @@ const ProductReview = ({ productId }) => {
                 productId,
                 images,
                 rating,
-                title: cmt_tilte,
-                comment,
+                title: cmt_tilte.trim(),
+                comment: comment.trim(),
             })
         )
 

@@ -118,6 +118,7 @@ const UserInformation = () => {
     )
 
     return (
+        user &&
         <ConnectForm>
             {({ register, formState: { errors } }) => (
                 <>

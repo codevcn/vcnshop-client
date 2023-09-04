@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { styled } from '@mui/material/styles'
 import { useDispatch, useSelector } from "react-redux"
 import { getReviews } from "../../store/actions/product_actions"
-import { Rating } from "@mui/material"
+import { Box, Rating } from "@mui/material"
 import { Skeleton } from "@mui/material"
 import CommentIcon from '@mui/icons-material/Comment'
 import { LIMIT_GET_COMMENTS } from "../../configs/constants"
@@ -90,15 +90,21 @@ const ReviewsSection = ({ productId }) => {
                     </EmptyReviews>
             }
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <ReviewPages
-                    count={Math.ceil(reviews.length / LIMIT_GET_COMMENTS)}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={switchCommentPage}
-                    page={reviewPage}
-                />
-            </div>
+            {
+                reviews &&
+                <Box
+                    display='flex'
+                    justifyContent='center'
+                >
+                    <ReviewPages
+                        count={Math.ceil(reviews.length / LIMIT_GET_COMMENTS)}
+                        variant="outlined"
+                        shape="rounded"
+                        onChange={switchCommentPage}
+                        page={reviewPage}
+                    />
+                </Box>
+            }
         </>
     )
 }
@@ -117,14 +123,21 @@ const Description = ({ description }) => {
                 <KeyboardArrowDownIcon />
             </ViewBtn>
 
-            <Collapse
-                in={open}
-                unmountOnExit
-                timeout="auto"
-                sx={{ marginTop: '10px' }}
+            <Box
+                marginTop="10px"
             >
-                <span>{description}</span>
-            </Collapse>
+                <Collapse
+                    in={open}
+                    unmountOnExit
+                    timeout="auto"
+                >
+                    <Box
+                        whiteSpace="pre-wrap"
+                    >
+                        {description}
+                    </Box>
+                </Collapse>
+            </Box>
         </>
     )
 }

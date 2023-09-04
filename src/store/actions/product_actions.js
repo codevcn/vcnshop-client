@@ -4,14 +4,17 @@ import {
     getProductRequest, getProductSuccess, getProductFail, //product detail
     newReviewRequest, newReviewSuccess, newReviewFail,
     getReviewsRequest, getReviewsSuccess, getReviewsFail,
-    createNewProductRequest, createNewProductSuccess, createNewProductFail,
-    updateProductRequest, updateProductSuccess, updateProductFail,
-    deleteProductRequest, deleteProductSuccess, deleteProductFail,
     getWomenSProductsRequest, getWomenSProductsSuccess, getWomenSProductsFail,
     getMenSProductsRequest, getMenSProductsSuccess, getMenSProductsFail,
     getOverviewRequest, getOverviewSuccess, getOverviewFail,
+} from '../reducers/product_forUser_reducer.js'
+import {
+    createNewProductRequest, createNewProductSuccess, createNewProductFail,
+    updateProductRequest, updateProductSuccess, updateProductFail,
+    deleteProductRequest, deleteProductSuccess, deleteProductFail,
     getProductsForShopFail, getProductsForShopRequest, getProductsForShopSuccess,
-} from '../reducers/product_reducer.js'
+    getProductForShopFail, getProductForShopRequest, getProductForShopSuccess,
+}from '../reducers/product_forShop_reducer.js'
 import { toast } from 'react-toastify'
 import axiosErrorHandler from '../../utils/axios_error_handler.js'
 import {
@@ -34,16 +37,17 @@ import {
     find_orders_with_productId_api,
 } from '../../apis/order_apis.js'
 
-const createNewProduct = (
+const createNewProduct = ({
     productName,
     category,
     targetGender,
     price,
-    { colors, sizes },
+    colors,
+    sizes,
     stock,
     description,
     images
-) => async (dispatch) => {
+}) => async (dispatch) => {
 
     let product_data = new FormData()
     product_data.set('productName', productName)
@@ -72,7 +76,7 @@ const createNewProduct = (
     try {
         dispatch(createNewProductRequest())
 
-        await axios.post(
+        let { data } = await axios.post(
             create_product_api,
             product_data,
             {
@@ -80,12 +84,12 @@ const createNewProduct = (
                 headers: { 'Content-Type': 'multipart/form-data' }
             }
         )
-
-        dispatch(createNewProductSuccess())
+console.log('>>> pro >>>', data.product)
+        dispatch(createNewProductSuccess({ product: data.product }))
 
         toast.success('Add Product Successfully!')
 
-        redirectAfterSeconds(1000, { isReload: true })
+        // redirectAfterSeconds(1000, { isReload: true })
     } catch (error) {
         let errorObject = axiosErrorHandler(error)
 
@@ -95,14 +99,14 @@ const createNewProduct = (
     }
 }
 
-const updateProduct = (
+const updateProduct = ({
     sizes,
     colors,
     stock,
     description,
     productId,
     images
-) => async (dispatch) => {
+}) => async (dispatch) => {
 
     let product_data = new FormData()
     product_data.set('productId', productId)
@@ -131,7 +135,7 @@ const updateProduct = (
     try {
         dispatch(updateProductRequest())
 
-        await axios.post(
+        let { data } = await axios.post(
             update_product_api,
             product_data,
             {
@@ -139,12 +143,12 @@ const updateProduct = (
                 headers: { 'Content-Type': 'multipart/form-data' },
             }
         )
-
-        dispatch(updateProductSuccess())
+console.log('>>> data >>>', data.product)
+        dispatch(updateProductSuccess({ product: data.product }))
 
         toast.success('Update Product Successfully!')
 
-        redirectAfterSeconds(1000, { isReload: true })
+        // redirectAfterSeconds(1000, { isReload: true })
     } catch (error) {
         let errorObject = axiosErrorHandler(error)
 
@@ -381,6 +385,20 @@ const getProductDetail = (product_id) => async (dispatch) => {
     }
 }
 
+const getProductDetailForShop = (product_id) => async (dispatch) => {
+    try {
+        dispatch(getProductForShopRequest())
+
+        let { data } = await axios.get(get_product_api + product_id)
+
+        dispatch(getProductForShopSuccess({ product: data.product }))
+    } catch (error) {
+        let errorObject = axiosErrorHandler(error, 'Error Warning: fail to get product detail.')
+
+        dispatch(getProductForShopFail({ error: errorObject }))
+    }
+}
+
 const getReviews = (productId, page = 1, limit = LIMIT_GET_COMMENTS) => async (dispatch) => {
     try {
         dispatch(getReviewsRequest())
@@ -459,5 +477,5 @@ export {
     getReviews, getProductDetail, newReview,
     createNewProduct,
     updateProduct, deleteProduct, getProductsOverview,
-    getProductsForShop,
+    getProductsForShop, getProductDetailForShop,
 }

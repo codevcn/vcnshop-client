@@ -21,7 +21,7 @@ import testing from '../../test/auth.json'
 
 const form_group_icon_style = { color: 'white', marginLeft: '10px' }
 
-const auto_account = testing.Account
+const auto_account = testing.accounts
 
 const AutoAccountButton = ({ handleSetAutoAccount }) => {
     const [getAccountBtn, setGetAccountBtn] = useState(false)

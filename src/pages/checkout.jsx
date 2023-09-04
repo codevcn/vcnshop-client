@@ -27,11 +27,13 @@ const get_step_from_route = (current_route) => {
 const get_step_index = (step) => steps.indexOf(step)
 
 const checkProducts = async (products) => {
-    return await axios.post(
-        check_products_api,
-        { products },
-        { withCredentials: true }
-    )
+    if (products && products.length > 0) {
+        await axios.post(
+            check_products_api,
+            { products },
+            { withCredentials: true }
+        )
+    }
 }
 
 const Checkout = () => {

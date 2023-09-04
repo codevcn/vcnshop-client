@@ -29,12 +29,12 @@ export const userSlice = createSlice({
             state.loading = true
         },
         getUserSuccess: (state, action) => {
-            let update_account = action.payload
-            if (update_account) {
+            let user_data = action.payload
+            if (user_data) {
                 let current_user = current(state).user
                 state.user = {
                     ...current_user,
-                    ...update_account,
+                    ...user_data,
                 }
             }
 

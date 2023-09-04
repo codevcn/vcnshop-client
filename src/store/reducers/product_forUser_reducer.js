@@ -1,6 +1,6 @@
 import { createSlice, current } from '@reduxjs/toolkit'
 
-export const productsSlice = createSlice({
+export const productForUserSlice = createSlice({
     name: 'product',
     initialState: {
         countProducts: 0,
@@ -36,40 +36,6 @@ export const productsSlice = createSlice({
         },
     },
     reducers: {
-        createNewProductRequest: (state, action) => {
-            state.productDetail.loading = true
-            state.productDetail.error = null
-        },
-        createNewProductSuccess: (state, action) => {
-            state.productDetail.loading = false
-        },
-        createNewProductFail: (state, action) => {
-            state.productDetail.loading = false
-            state.productDetail.error = action.payload.error
-        },
-
-
-        updateProductRequest: (state, action) => {
-            state.productDetail.loading = true
-            state.productDetail.error = null
-        },
-        updateProductSuccess: (state, action) => {
-            state.productDetail.loading = false
-        },
-        updateProductFail: (state, action) => {
-            state.productDetail.loading = false
-            state.productDetail.error = action.payload.error
-        },
-
-
-        deleteProductRequest: (state, action) => {
-        },
-        deleteProductSuccess: (state, action) => {
-        },
-        deleteProductFail: (state, action) => {
-        },
-
-
         getProductsRequest: (state, action) => {
             state.error = null
             state.loading = true
@@ -185,46 +151,7 @@ export const {
     getProductRequest, getProductSuccess, getProductFail,
     newReviewRequest, newReviewSuccess, newReviewFail,
     getReviewsRequest, getReviewsSuccess, getReviewsFail,
-    createNewProductRequest, createNewProductSuccess, createNewProductFail,
-    updateProductRequest, updateProductSuccess, updateProductFail,
-    deleteProductRequest, deleteProductSuccess, deleteProductFail,
     getOverviewRequest, getOverviewSuccess, getOverviewFail,
-} = productsSlice.actions
+} = productForUserSlice.actions
 
-export const productsForShopSlice = createSlice({
-    name: 'product',
-    initialState: {
-        countProducts: 0,
-        currentPage: 1,
-        loading: false,
-        error: null,
-        products: null,
-    },
-    reducers: {
-        getProductsForShopRequest: (state, action) => {
-            state.error = null
-            state.loading = true
-        },
-        getProductsForShopSuccess: (state, action) => {
-            state.products = action.payload.products
-            state.countProducts = action.payload.countProducts
-            state.currentPage = action.payload.currentPage
-            state.loading = false
-        },
-        getProductsForShopFail: (state, action) => {
-            state.error = action.payload.error
-            state.loading = false
-        },
-    }
-})
-
-export const {
-    getProductsForShopFail, getProductsForShopRequest, getProductsForShopSuccess,
-} = productsForShopSlice.actions
-
-const product_reducer = {
-    shop: productsForShopSlice.reducer,
-    user: productsSlice.reducer,
-}
-
-export default product_reducer
+export default productForUserSlice.reducer

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { styled } from '@mui/material/styles'
 import { useDispatch, useSelector } from "react-redux"
-import { getProductDetail } from "../../store/actions/product_actions"
+import { getProductDetailForShop } from "../../store/actions/product_actions"
 import { Skeleton, Typography, Tooltip, Stack } from "@mui/material"
 import InfoIcon from '@mui/icons-material/Info'
 import ReviewsAndDescription from "./reviews_and_description"
@@ -128,13 +128,13 @@ const Detail = ({ product }) => {
 }
 
 const ProductDetail = () => {
-    const { product, loading, error } = useSelector(({ product }) => product.productDetail)
+    const { productDetail: product, loading, error } = useSelector(({ product_for_shop }) => product_for_shop)
     const dispatch = useDispatch()
     const { productId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        dispatch(getProductDetail(productId))
+        dispatch(getProductDetailForShop(productId))
     }, [dispatch])
 
     return (
@@ -255,7 +255,7 @@ const Product = styled('div')(({ theme }) => ({
 const ImagesSection = styled('div')(({ theme }) => ({
     display: 'flex',
     columnGap: '15px',
-    width: '100%',
+    width: '60%',
     [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         rowGap: '10px',

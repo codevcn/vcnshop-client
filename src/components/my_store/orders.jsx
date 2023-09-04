@@ -323,15 +323,15 @@ const EmptyHeading = ({ option }) => (
         marginTop="50px"
     >
         <StorageIcon sx={{ fontSize: '1.8em' }} />
-        <div>
+        <Typography
+            marginTop="10px"
+        >
             {
                 option === 'All Orders' ? (
                     "Oops! You have no order now!"
-                ) : option === 'Uncompleted' && (
-                    "You have no order is " + option.toLowerCase()
-                )
+                ) : "You have no order is " + option.toLowerCase()
             }
-        </div>
+        </Typography>
     </Box >
 )
 
@@ -350,7 +350,7 @@ const set_total_price_for_each_order = (orders) => {
 }
 
 const OrdersSection = ({ option }) => {
-    const { orders, loading, error, countOrders, currentPage } = useSelector(({ order_for_store }) => order_for_store)
+    const { orders, loading, error, countOrders, currentPage } = useSelector(({ order_for_shop }) => order_for_shop)
     const [sort, setSort] = useState({ by: '', type: 'asc' })
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -415,8 +415,9 @@ const OrdersSection = ({ option }) => {
                     <Box
                         display='flex'
                         justifyContent='center'
+                        marginTop="30px"
                     >
-                        <Pages
+                        <Pagination
                             count={get_number_of_pages(countOrders, LIMIT_GET_ORDERS_SHOP)}
                             variant="outlined"
                             shape="rounded"
@@ -564,26 +565,3 @@ const Product = styled('div')(({ theme }) => ({
     padding: '20px 30px',
     fontFamily: theme.fontFamily.kanit,
 }))
-
-const Pages = styled(Pagination)({
-    marginTop: '30px',
-    '& button.MuiPaginationItem-root': {
-        backgroundColor: 'black',
-        border: '1.5px black solid',
-        color: 'white',
-        '&:hover': {
-            border: '2px white solid',
-        },
-        '&.Mui-selected': {
-            border: '2px white solid',
-            backgroundColor: '#a4dfff',
-            color: 'black',
-        },
-        '&.Mui-disabled': {
-            opacity: 0.3,
-        },
-        '& span.MuiTouchRipple-root': {
-            display: 'none',
-        }
-    }
-})

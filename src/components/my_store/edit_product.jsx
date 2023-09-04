@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useTransition, useRef } from "react"
 import { styled } from '@mui/material/styles'
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
 import { toast } from 'react-toastify'
 import { IconButton } from "@mui/material"
@@ -291,7 +291,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const max_add_images = 5
 
 const EditProduct = ({ productId }) => {
-    const { loading } = useSelector(({ product }) => product.productDetail)
+    const [loading, setLoading] = useState(false)
     const [openEditProduct, setOpenEditProduct] = useState(false)
     const useForm_methods = useForm()
     const { handleSubmit } = useForm_methods
@@ -299,7 +299,7 @@ const EditProduct = ({ productId }) => {
     const dispatch = useDispatch()
     const product_images = useRef()
 
-    const checkAndSubmitEditProduct = (data, e) => {
+    const checkAndSubmitEditProduct = async (data, e) => {
         e.preventDefault()
 
         let description = data['Description']
@@ -324,14 +324,20 @@ const EditProduct = ({ productId }) => {
         let colors_array = colors && colors.slice(1, colors.length).split(',')
         let sizes_array = sizes && sizes.slice(1, sizes.length).split(',')
 
-        dispatch(updateProduct(
-            sizes_array,
-            colors_array,
+        setLoading(true)
+
+        await dispatch(updateProduct({
+            sizes: sizes_array,
+            colors: colors_array,
             stock,
-            description.trim(),
+            description: description.trim(),
             productId,
             images
-        ))
+        }))
+
+        setLoading(false)
+
+        setOpenEditProduct(false)
     }
 
     return (

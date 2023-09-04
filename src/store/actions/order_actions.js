@@ -3,13 +3,15 @@ import {
     completeOrderRequest, completeOrderSuccess, completeOrderFail,
     getOrderRequest, getOrderSuccess, getOrderFail,
     getOrdersRequest, getOrdersSuccess, getOrdersFail,
-    getOrderRequestForStore,
-    getOrderSuccessForStore,
-    getOrderFailForStore,
-    getOrdersRequestForStore,
-    getOrdersSuccessForStore,
-    getOrdersFailForStore,
-} from '../reducers/order_reducer.js'
+} from '../reducers/order_forUser_reducer.js'
+import {
+    getOrderRequestForShop,
+    getOrderSuccessForShop,
+    getOrderFailForShop,
+    getOrdersRequestForShop,
+    getOrdersSuccessForShop,
+    getOrdersFailForShop,
+}from '../reducers/order_forShop_reducer.js'
 import { toast } from 'react-toastify'
 import axiosErrorHandler from '../../utils/axios_error_handler.js'
 import {
@@ -117,7 +119,7 @@ const getOrders = (page = 1, limit = LIMIT_GET_ORDERS, payment_status = null) =>
 
 const getOrdersForShop = (limit = LIMIT_GET_ORDERS, page = 1, order_status) => async (dispatch) => {
     try {
-        dispatch(getOrdersRequestForStore())
+        dispatch(getOrdersRequestForShop())
 
         let query = {
             page,
@@ -135,7 +137,7 @@ const getOrdersForShop = (limit = LIMIT_GET_ORDERS, page = 1, order_status) => a
             }
         )
 
-        dispatch(getOrdersSuccessForStore({
+        dispatch(getOrdersSuccessForShop({
             orders: data.orders,
             countOrders: data.orders.length,
             currentPage: page,
@@ -144,7 +146,7 @@ const getOrdersForShop = (limit = LIMIT_GET_ORDERS, page = 1, order_status) => a
     } catch (error) {
         let errorObject = axiosErrorHandler(error, 'Error Warning: fail to get orders.')
 
-        dispatch(getOrdersFailForStore({ error: errorObject }))
+        dispatch(getOrdersFailForShop({ error: errorObject }))
 
         toast.error(errorObject.message)
     }
@@ -152,7 +154,7 @@ const getOrdersForShop = (limit = LIMIT_GET_ORDERS, page = 1, order_status) => a
 
 const getOrderDetailForShop = (orderId) => async (dispatch) => {
     try {
-        dispatch(getOrderRequestForStore())
+        dispatch(getOrderRequestForShop())
 
         let { data } = await axios.get(
             get_one_order_for_shop_api,
@@ -164,11 +166,11 @@ const getOrderDetailForShop = (orderId) => async (dispatch) => {
             }
         )
 
-        dispatch(getOrderSuccessForStore({ order: data.order }))
+        dispatch(getOrderSuccessForShop({ order: data.order }))
     } catch (error) {
         let errorObject = axiosErrorHandler(error, 'Error Warning: fail to get order.')
 
-        dispatch(getOrderFailForStore({ error: errorObject }))
+        dispatch(getOrderFailForShop({ error: errorObject }))
 
         toast.error(errorObject.message)
     }

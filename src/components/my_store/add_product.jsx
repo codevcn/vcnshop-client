@@ -385,7 +385,7 @@ const AddImagesSection = React.memo(({ onChange }) => {
 const max_add_images = 5
 
 const AddProduct = () => {
-    const { loading } = useSelector(({ product }) => product.productDetail)
+    const [loading, setLoading] = useState(false)
     const [openAddProduct, setOpenAddProduct] = useState(false)
     const useForm_methods = useForm()
     const { handleSubmit } = useForm_methods
@@ -397,7 +397,7 @@ const AddProduct = () => {
         product_images.current = images
     }, [])
 
-    const checkAndSubmitAddProduct = (data, e) => {
+    const checkAndSubmitAddProduct = async (data, e) => {
         e.preventDefault()
 
         let product_name = data['Product Name']
@@ -441,16 +441,23 @@ const AddProduct = () => {
         let colors_array = colors.slice(1).split(',')
         let sizes_array = sizes.slice(1).split(',')
 
-        dispatch(createNewProduct(
-            product_name.trim(),
+        setLoading(true)
+
+        await dispatch(createNewProduct({
+            productName: product_name.trim(),
             category,
-            target_gender,
+            targetGender: target_gender,
             price,
-            { colors: colors_array, sizes: sizes_array },
+            colors: colors_array,
+            sizes: sizes_array,
             stock,
-            description.trim(),
+            description: description.trim(),
             images
-        ))
+        }))
+
+        setLoading(false)
+
+        setOpenAddProduct(false)
     }
 
     return (

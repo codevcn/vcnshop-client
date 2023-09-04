@@ -171,6 +171,7 @@ const Avatar = () => {
     const { user } = useSelector(({ user }) => user)
 
     return (
+        user &&
         <AvatarSection id="AvatarSection">
 
             <UpdateAvatar userAvatar={user.avatar} />

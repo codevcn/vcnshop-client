@@ -26,10 +26,8 @@ import {
     logout_user_api,
 } from '../../apis/auth_apis.js'
 
-const setUpAuth = () => async (dispatch, getState) => {
+const setUpAuth = () => async (dispatch) => {
     dispatch(setUpAuthSuccess())
-
-    return getState().user.auth.authStatus
 }
 
 const sendRegisterOTP = (email) => async (dispatch) => {

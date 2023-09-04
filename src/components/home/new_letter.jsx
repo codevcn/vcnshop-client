@@ -123,7 +123,7 @@ const EmailInput = styled('input')({
     backgroundColor: 'transparent',
 })
 
-const SubmitBtn = styled('button')({
+const SubmitBtn = styled('button')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -136,11 +136,13 @@ const SubmitBtn = styled('button')({
     border: 'none',
     color: 'white',
     boxSizing: 'border-box',
-    '&:hover svg.MuiSvgIcon-root': {
-        animationPlayState: 'running',
-        animationDuration: '0.8s',
+    [theme.breakpoints.up('sm')]: {
+        '&:hover svg': {
+            animationPlayState: 'running',
+            animationDuration: '0.8s',
+        }
     }
-})
+}))
 
 const StyledSendIcon = styled(SendIcon)({
     color: 'white',
