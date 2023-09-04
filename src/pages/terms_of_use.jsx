@@ -4,7 +4,7 @@ import { Box, Stack, Typography, Divider } from '@mui/material'
 import { useNavigate } from "react-router-dom"
 import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown'
 
-const embed_link_terms_of_use_html = "https://codevcnn.github.io/Storage/terms_of_use_vcn_shop_ecommerce.html"
+const embed_link_terms_of_use_html = "https://vcnshop-termofuse.web.app/"
 
 const TermsOfUse = () => {
     const navigate = useNavigate()
