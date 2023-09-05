@@ -24,7 +24,7 @@ const ProtectedRoute = ({ children, isAdminRoute }) => {
 
             setIsVerified(true)
         } else if (authStatus === AUTH_STATUS_NOT_AUTHENTICATED) {
-            toast.warning('Session is expired or not a authenticated user!')
+            toast.warning('Session expires or not an authenticated user!')
             navigate_to_login()
         }
     }
